@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  padding: 20px;
+  padding-bottom: 90px;
+}
+
+.stage {
+  height: 400px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: stretch;
+
+  .stage__button {
+    margin-top: 30px;
+  }
+}
+
+.featured-listings {
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 600px) {
+  .footer > .inner-wrapper {
+    display: block;
+    text-align: center;
+  }
+}

@@ -1,0 +1,69 @@
+@use "@angular/material" as mat;
+// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
+//  The following line adds:
+//    1. Default typography styles for all components
+//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
+//  If you specify typography styles for the components you use elsewhere, you should delete this line.
+//  If you don't need the default component typographies but still want the hierarchy styles,
+//  you can delete this line and instead use:
+//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
+// @include mat.all-legacy-component-typographies();
+// @include mat.legacy-core();
+$primary-palette: mat.define-palette(mat.$indigo-palette);
+
+.header__logo {
+  width: 5rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-toolbar {
+  display: flex;
+}
+
+main {
+  min-height: calc(100% - 242px);
+}
+
+.footer {
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+
+  > .inner-wrapper {
+    font-size: 0.8rem;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    align-items: stretch;
+    align-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    bottom: 0;
+  }
+
+  .footer__links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: stretch;
+    justify-content: center;
+
+    a {
+      margin: 0 10px;
+      color: mat.get-color-from-palette($primary-palette, 500);
+    }
+  }
+}
+
+.notification.error {
+  color: rgb(223, 0, 0);
+}
+
+.notification.info {
+  color: rgb(76, 76, 253);
+}

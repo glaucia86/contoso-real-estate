@@ -1,0 +1,35 @@
+<nav>
+  <button
+    title="Welcome, {{ user?.name }}"
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="User profile menu"
+    disableRipple="true"
+    class="user__name"
+  >
+    <span class="user__name">Welcome, {{ user?.name }}</span>
+    <span class="material-symbols-outlined user__avatar"> account_circle </span>
+  </button>
+  <mat-menu #menu="matMenu">
+    <ul class="main-nav" *ngIf="isAuthenticated(); else nonAuthenticatedTemplate">
+      <li *ngFor="let item of navItems">
+        <a mat-tab-nav-bar mat-menu-item [routerLink]="item.route">
+          <span class="nav-text"> {{ item.name }} </span>
+        </a>
+      </li>
+      <li>
+        <a mat-menu-item href="/.auth/logout?post_logout_redirect_uri=/home"><span class="nav-text"> Logout </span></a>
+      </li>
+    </ul>
+
+    <ng-template #nonAuthenticatedTemplate>
+      <ul class="main-nav">
+        <li>
+          <a mat-menu-item routerLink="/auth/login">
+            <span class="nav-text">Login</span>
+          </a>
+        </li>
+      </ul>
+    </ng-template>
+  </mat-menu>
+</nav>

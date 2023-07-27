@@ -1,0 +1,88 @@
+@use "@angular/material" as mat;
+$accent-palette:  mat.define-palette(mat.$amber-palette);
+$green-palette:  mat.define-palette(mat.$green-palette);
+$grey-palette:  mat.define-palette(mat.$grey-palette);
+
+.profile-page .subtitle {
+  margin: 16px;
+}
+
+.profile-body {
+  .mat-card {
+    margin: 15px;
+    cursor: pointer;
+
+    .mat-card-actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .mat-card:hover {
+    @include mat.elevation(8);
+  }
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 25px;
+  padding: 20px;
+
+  @media screen and (min-width: 764px) {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.tab-wrapper {
+  padding-top: 25px;
+
+  .mat-card-header {
+    display: block;
+  }
+}
+
+.user__avatar {
+  display: inline-block;
+  width: 45px;
+  font-size: 45px;
+}
+
+.mat-list-base .mat-list-item {
+  .reservation-title, .payment-title {
+    font-weight: bold;
+  }
+
+  .reservation-subtitle, .payment-subtitle {
+    font-size: 0.8em;
+  }
+
+  .reservation-status, .payment-status {
+    font-size: 0.7em;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-weight: normal;
+    background-color: mat.get-color-from-palette($accent-palette, 500);
+    color: mat.get-color-from-palette($accent-palette, 500-contrast);
+
+    &.active, &.completed {
+      background-color: mat.get-color-from-palette($green-palette, A200);
+      color: mat.get-color-from-palette($green-palette, A200-contrast);
+    }
+
+    &.cancelled {
+      background-color: mat.get-color-from-palette($grey-palette, 300);
+      color: mat.get-color-from-palette($grey-palette, 300-contrast);
+    }
+  }
+
+  .mat-line {
+    white-space: initial;
+  }
+
+  .reservation-view {
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+}

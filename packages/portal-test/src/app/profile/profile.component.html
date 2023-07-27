@@ -1,0 +1,104 @@
+<section class="profile-page inner-wrapper">
+  <h2 class="subtitle">My Profile</h2>
+
+  <div class="profile-grid">
+    <aside class="aside-left">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ user.name }}</mat-card-title>
+          <div mat-card-avatar>
+            <!-- <img class="user__avatar" [src]="user.avatar" alt="User avatar"> -->
+            <span class="material-symbols-outlined user__avatar"> account_circle </span>
+          </div>
+          <mat-card-subtitle>{{ user.role }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </aside>
+
+    <section class="profile-body">
+      <mat-tab-group [selectedIndex]="selectedTabIndex">
+
+        <!-- favorites -->
+        <mat-tab label="Saved Listings">
+          <div class="tab-wrapper">
+            <p *ngIf="!listings || listings.length === 0">
+              You have no saved listings. <a routerLink="/home">Browse listings</a>
+            </p>
+
+            <mat-card
+              *ngFor="let listing of listings"
+              [ngClass]="{ 'loading-background': !listing.title }"
+              [title]="listing?.title"
+            >
+              <mat-card-header>
+                <mat-card-title-group>
+                  <mat-card-title>{{ listing.title }}</mat-card-title>
+                  <mat-card-subtitle>
+                    {{ listing?.address?.[5] }}, {{ listing?.address?.[4] }},
+                    {{ listing?.address?.[1] }}</mat-card-subtitle
+                  >
+                  <img mat-card-sm-image src="/assets/images/{{ listing?.photos?.[0] }}" />
+                </mat-card-title-group>
+              </mat-card-header>
+              <mat-card-content> {{ listing?.description?.substr(0, 200) }}... </mat-card-content>
+              <mat-card-actions>
+                <button mat-button color="warn" (click)="removeFavorite(listing)">Remove from favorites</button>
+                <a
+                  mat-flat-button
+                  color="primary"
+                  [title]="listing?.title"
+                  [routerLink]="['/listing/' + listing?.id + '/' + listing?.slug]"
+                  [state]="{ listing }"
+                  >View listing</a
+                >
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </mat-tab>
+
+        <!-- payments -->
+        <mat-tab label="Payment History">
+          <div class="tab-wrapper">
+            <mat-list>
+              <mat-list-item *ngIf="payments.length === 0">No payments found.</mat-list-item>
+              <mat-list-item *ngFor="let payment of payments; trackBy: trackByPaymentId">
+                <div mat-line class="payment-title">
+                  {{ showAmount(payment.amount) }} {{ payment.currency }} (via {{ payment.provider }})
+                  <span class="payment-status" [ngClass]="payment.status">{{ payment.status }}</span>
+                </div>
+                <div mat-line class="payment-subtitle">
+                  {{ payment.createdAt | date: 'mediumDate' }}
+                </div>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </mat-tab>
+
+        <!-- reservations -->
+        <mat-tab label="Reservations">
+          <div class="tab-wrapper">
+            <mat-list>
+              <mat-list-item *ngIf="reservations.length === 0">No reservations found.</mat-list-item>
+              <mat-list-item *ngFor="let reservation of reservations; trackBy: trackByReservationId">
+                <div mat-line class="reservation-title">
+                  {{ reservation.title }} ({{ reservation.guests }}
+                  <span [ngPlural]="reservation.guests">
+                    <ng-template ngPluralCase="=1">guest</ng-template>
+                    <ng-template ngPluralCase="other">guests</ng-template>
+                  </span>
+                  <span class="reservation-status" [ngClass]="reservation.status">{{ reservation.status }}</span>
+                </div>
+                <div mat-line class="reservation-subtitle">
+                  {{ reservation.from | date: 'mediumDate' }} - {{ reservation.to | date: 'mediumDate' }}
+                </div>
+                <button class="reservation-view" mat-flat-button color="primary" [title]="reservation?.title" (click)="viewListing(reservation.listingId)">View Listing</button>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </section>
+  </div>
+</section>

@@ -1,0 +1,7 @@
+<section class="results">
+  <ul class="card-list grid" *ngIf="listings && listings.length !== 0">
+    <li class="card-list card" *ngFor="let listing of listings">
+      <app-card class="card-list-item" [listing]="listing" [user]="user"></app-card>
+    </li>
+  </ul>
+</section>
